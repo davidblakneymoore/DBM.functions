@@ -6,7 +6,7 @@ It includes a function, `Aligning_Values_Across_Multiple_Vertical_Axes`, that ge
 
 It includes a function, `Comparing_Multiple_Independent_Correlation_Coefficients`, that compares 3 or more correlation coefficients from independent correlations (Levy, 1977). This function generates p values for pairwise correlation coefficient comparisons as well as means separation lettering.
 
-It includes a function, `Finding_the_Optimal_Sigmoid_Function_Model`, which determines from ten different, fully differentiable sigmoid functions which sigmoid function best fits a binary response data set (a data set where the response variable contains only `1`s and `0`s). [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Comparing%20Sigmoid%20Function%20Models.jpeg) is a plot that was made using this function.
+It includes a function, `Finding_the_Optimal_Sigmoid_Function_Model`, which determines from ten different, fully differentiable sigmoid functions which sigmoid function best fits a binary response data set (a data set where the response variable contains only `1`s and `0`s). [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Comparing%20Sigmoid%20Function%20Models.jpeg) is a plot that shows what this function can do.
 
 <b>Works Cited</b>
 
