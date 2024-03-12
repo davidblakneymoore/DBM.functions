@@ -8,6 +8,8 @@ The function `Comparing_Multiple_Independent_Correlation_Coefficients` compares 
 
 The function `Finding_the_Optimal_Sigmoid_Function_Model` determines which sigmoid function best fits a binary response data set (a data set where the response variable contains only `1`s and `0`s) from ten different, fully differentiable sigmoid functions. [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Comparing%20Sigmoid%20Function%20Models.jpeg) is a plot that shows what this function can do.
 
+The `Sugar_Maple_Data` data frame may be used with the `Aligning_Values_Across_Multiple_Vertical_Axes` function - the `Sap_Flow` and `Wood_Temperature` columns in this data frame can be aligned across primary and secondary vertical axes at the values of `0` as shown [here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg).
+
 <b>Works Cited</b>
 
 Beghin, G. 2023. Does the Lay Concept of Mental Disorder Necessitate a Dysfunction? Advances in Experimental Philosophy of Medicine, edited by Kristien Hens and Andreas De Block. Bloomsbury Publishing. Pp. 71-96.
