@@ -1,5 +1,5 @@
 Package: DBM.functions
-Title: A Variety of Functions for a Variety of Applications
+Title: A Variety of Functions for a Variety of Purposes
 Version: 0.0.0.9000
 Authors@R: 
     person("David", "Moore", , "davidblakneymoore@gmail.com", role = c("aut", "cre"),
