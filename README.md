@@ -4,13 +4,11 @@ This package, which has no dependencies, contains a variety of functions for a v
 
 The function `Aligning_Values_Across_Multiple_Vertical_Axes` generates axis limits for aligning values across multiple vertical axes on plots. [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg) is an example plot that used this function to align `0`s across the primary and secondary vertical axes.
 
-The function `Comparing_Multiple_Independent_Correlation_Coefficients` compares 3 or more correlation coefficients from independent correlations (Levy, 1977). This function generates p values for pairwise correlation coefficient comparisons as well as means separation lettering. It has been cited in several publications (Beghin, 2023; Chue and Yeo, 2022; Findor et al., 2021; Matko and Sedlmeier, 2023) and it was inspired partly by the `agricolae` package (de Mendiburu, 2017).
+The function `Comparing_Multiple_Independent_Correlation_Coefficients` compares 3 or more correlation coefficients from independent correlations (Levy, 1977). This function generates p values for pairwise correlation coefficient comparisons as well as means separation lettering. It has been cited in several publications (Beghin, 2023; Chue and Yeo, 2022; Findor et al., 2021; Matko and Sedlmeier, 2023).
 
 The function `Finding_the_Optimal_Sigmoid_Function_Model` determines which sigmoid function best fits a binary response data set (a data set where the response variable contains only `1`s and `0`s) from ten different, fully differentiable sigmoid functions. [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Comparing%20Sigmoid%20Function%20Models.jpeg) is a plot that shows what this function can do.
 
 <b>Works Cited</b>
-
-de Mendiburu, F. 2017. agricolae: Statistical Procedures for Agricultural Research. R package version 1.2-8. https://CRAN.R-project.org/package=agricolae.
 
 Beghin, G. 2023. Does the Lay Concept of Mental Disorder Necessitate a Dysfunction? Advances in Experimental Philosophy of Medicine, edited by Kristien Hens and Andreas De Block. Bloomsbury Publishing. Pp. 71-96.
 
