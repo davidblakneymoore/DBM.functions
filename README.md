@@ -1,6 +1,6 @@
-# `DBM.functions`: A Variety of Functions for a Variety of Purposes
+# `DBM.functions`: A Variety of Functions for a Variety of Applications
 
-This package, which has no dependencies, contains a variety of functions for a variety of purposes.
+This package, which has no dependencies, contains a variety of functions for a variety of applications.
 
 The function `Aligning_Values_Across_Multiple_Vertical_Axes` generates axis limits for aligning values across multiple vertical axes on plots. [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg) is an example plot that used this function to align `0`s across the primary and secondary vertical axes.
 
