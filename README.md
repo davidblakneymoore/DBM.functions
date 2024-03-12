@@ -1,6 +1,12 @@
 # `DBM.functions`: A Variety of Functions for a Variety of Applications
 
+
+<b>Overview</b>
+
 This package, which has no dependencies, contains a variety of functions for a variety of applications.
+
+
+<b>Functions</b>
 
 The function `Aligning_Values_Across_Multiple_Vertical_Axes` generates axis limits for aligning values across multiple vertical axes on plots. [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Aligning%20Three%20Variables%20Across%20Three%20Vertical%20Axes%20Figure.jpeg) and [here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg) are example figures that used this function to align values across multiple vertical vertical axes.
 
@@ -8,7 +14,11 @@ The function `Comparing_Multiple_Independent_Correlation_Coefficients` compares 
 
 The function `Finding_the_Optimal_Sigmoid_Function_Model` determines which sigmoid function best fits a binary response data set (a data set where the response variable contains only `1`s and `0`s) from ten different, fully differentiable sigmoid functions. [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Comparing%20Sigmoid%20Function%20Models.jpeg) is a plot that shows what this function can do.
 
+
+<b>Data Frames</b>
+
 The `Sugar_Maple_Data` data frame may be used with the `Aligning_Values_Across_Multiple_Vertical_Axes` function - the `Sap_Flow` and `Wood_Temperature` columns in this data frame can be aligned across primary and secondary vertical axes at the values of `0` as shown [here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg).
+
 
 <b>Works Cited</b>
 
