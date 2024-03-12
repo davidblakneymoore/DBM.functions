@@ -1,14 +1,10 @@
 # `DBM.functions`: A Variety of Functions for a Variety of Applications
 
 
-<b>Overview</b>
-
 ### Overview
 
 This package, which has no dependencies, contains a variety of functions for a variety of applications.
 
-
-<b>Functions</b>
 
 ### Functions
 
@@ -21,14 +17,10 @@ The function `Finding_the_Optimal_Sigmoid_Function_Model` determines which sigmo
 
 ### Data Frames
 
-<b>Data Frames</b>
-
 The `Sugar_Maple_Data` data frame may be used with the `Aligning_Values_Across_Multiple_Vertical_Axes` function - the `Sap_Flow` and `Wood_Temperature` columns in this data frame can be aligned across primary and secondary vertical axes at the values of `0` as shown [here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg).
 
 
 ### Works Cited
-
-<b>Works Cited</b>
 
 Beghin, G. 2023. Does the Lay Concept of Mental Disorder Necessitate a Dysfunction? Advances in Experimental Philosophy of Medicine, edited by Kristien Hens and Andreas De Block. Bloomsbury Publishing. Pp. 71-96.
 
