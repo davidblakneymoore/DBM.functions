@@ -1,4 +1,4 @@
-# DBM.functions
+# `DBM.functions`: A Variety of Functions for a Variety of Purposes
 
 This package, which has no dependencies, contains a variety of functions for a variety of purposes.
 
