@@ -8,7 +8,7 @@ This package, which has no dependencies, contains a variety of functions for a v
 
 #### Functions
 
-The function `Aligning_Values_Across_Multiple_Vertical_Axes` generates axis limits for aligning values across multiple vertical axes on plots. [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Aligning%20Three%20Variables%20Across%20Three%20Vertical%20Axes%20Figure.jpeg) and [here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg) are example figures that used this function to align values across multiple vertical vertical axes.
+The function `Aligning_Values_Across_Multiple_Vertical_Axes` generates axis limits for aligning values across multiple vertical axes on plots. [Here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Aligning%20Three%20Variables%20Across%20Three%20Vertical%20Axes%20Figure.jpeg) and [here](https://github.com/davidblakneymoore/DBM.functions/blob/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg) are example figures that used this function to align values across multiple vertical axes.
 
 The function `Comparing_Multiple_Independent_Correlation_Coefficients` compares 3 or more correlation coefficients from independent correlations (Levy, 1977). This function generates p values for pairwise correlation coefficient comparisons as well as means separation lettering. It has been cited in several publications (Beghin, 2023; Chue and Yeo, 2022; Findor et al., 2021; Matko and Sedlmeier, 2023).
 
