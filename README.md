@@ -35,3 +35,5 @@ Findor, A., M. Hruska, P. Jankovská, and M. Pobudová. 2021. Re-examining publi
 Levy, K.J. 1977. Pairwise comparisons involving unequal sample sizes associated with correlations, proportions or variances. Br. J. Math. Stat. Psychol. 30:137-139.
 
 Matko, K., and P. Sedlmeier. 2023. Which meditation technique for whom? An experimental single-case study comparing concentrative, humming, observing-thoughts, and walking meditation.
+
+Moore, D.B. 2024. DBM.functions: A Variety of Functions for a Variety of Applications. R package version 0.0.0.9000. https://github.com/davidblakneymoore/DBM.functions.
