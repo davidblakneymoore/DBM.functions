@@ -3,7 +3,7 @@
 
 #### Overview
 
-This package, which has no dependencies, contains a variety of functions for a variety of applications.
+This package, which has no dependencies, contains a variety of functions for a variety of applications. Download it by running the line of code `devtools::install_github("davidblakneymoore/DBM.functions")` in R.
 
 
 #### Functions
