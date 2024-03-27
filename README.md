@@ -21,7 +21,7 @@ The function `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_With_No
 
 #### Data Frames
 
-The `Sugar_Maple_Data` data frame may be used with the `Aligning_Values_Across_Multiple_Vertical_Axes` function - the `Sap_Flow` and `Wood_Temperature` columns in this data frame can be aligned across primary and secondary vertical axes at the values of `0` as shown [here](https://raw.githubusercontent.com/davidblakneymoore/DBM.functions/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg).
+The data frame `Sugar_Maple_Data` may be used with the `Aligning_Values_Across_Multiple_Vertical_Axes` function - the `Sap_Flow` and `Wood_Temperature` columns in this data frame can be aligned across primary and secondary vertical axes at the values of `0` as shown [here](https://raw.githubusercontent.com/davidblakneymoore/DBM.functions/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg).
 
 
 #### Works Cited
