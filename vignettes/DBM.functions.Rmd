@@ -1,0 +1,383 @@
+---
+title: "`DBM.functions`: A Variety of Functions for a Variety of Applications"
+author: "David B. Moore"
+date: "2024"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{`DBM.functions`: A Variety of Functions for a Variety of Applications}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r Settings, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+
+## Overview
+
+This R package, which has no dependencies, contains a variety of functions for a variety of applications. Download it by running the following lines of code.
+
+```{r Installation}
+if (!require (devtools)) {
+  install.packages("devtools")
+}
+library (devtools)
+devtools::install_github("davidblakneymoore/DBM.functions")
+library (DBM.functions)
+```
+
+
+## Functions
+
+### `Aligning_Values_Across_Multiple_Vertical_Axes`
+
+This function generates axis limits for aligning values across multiple vertical axes on plots. It may be used for numeric variables with any type of plot (including scatterplots, barplots, and boxplots). Although there are other functions elsewhere that do similar things, this function assign weights to the different variables. Other similar functions typically start by assuming the variable on the primary vertical axis will be plotted as normal and then fit the other variable or variables to the predetermined position of the value to be aligned. This function is more flexible since the user can define how much relative importance each variable has (in other words, how much space each variable should take up in the plotting region).
+
+This function uses ratios to generate the new axis limits, and there are three different cases. The first case is when the value to align for a particular variable (and a particular vertical axis) is between the minimum and maximum values of that variable, and in this case, the numerator of this ratio is the distance from the value to align to the variable's minimum value, and the denominator of this ratio is the distance from the variable's maximum value to the variable's minimum value. The second case is when the value to align for a particular variable is greater than the maximum value of that variable, and in this case, the ratio is `1` (the numerator of this ratio is the distance from the value to align to the variable's minimum value and the denominator of this ratio is the distance from the value to align to the variable's minimum value). The third case is when the value to align for a particular variable is less than the minimum value of that variable, and in this case, the ratio is `0` (the numerator of this ratio is the distance from the value to align to value to align and the denominator of this ratio is the distance from variable's maximum value to the value to align). When ratios have been calculated for each variable, the next step is to weigh them appropriately. By default, this function weighs them all the same, but if the user would like to see one (or more) of the variables take up a larger proportion of the plotting region, he or she may opt to assign different weights to each variable. The weighted average of these ratios is calculated, and it is this weighted-average ratio that serves as the ratio for all vertical axes' variables. Final axis limits are calculated by comparing the initial ratio for each variable to the final, weighted-average one. If the initial ratio for a particular variable is greater than the final ratio, a new maximum value is calculated that sets the variable's minimum value at the bottom of the plotting region and the value to align at the appropriate position along the vertical axis. If the initial ratio for a particular variable is less than the final ratio, a new minimum value is calculated that sets the variable's maximum value at the top of the plotting region and the value to align at the appropriate position along the vertical axis. If the initial ratio for a particular variable is equal to the final ratio, the minimum and maximum values for that particular variable are used with no further calculations. Finally, 'axis buffers' are added to the tops and bottoms of each variables' axis limits so plotted points don't risk falling outside of the plotting region.
+
+```{r `Aligning_Values_Across_Multiple_Vertical_Axes`, fig.dim = c(7, 5)}
+# An Example
+
+# Generate Some Made-up Data
+set.seed(100)
+Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function <- data.frame(Index = seq_len(100), Variable_1 = (2 * sin(seq_len(100) / 10)) + rnorm(100, -1, (1 / 3)), Variable_2 = (3 * sin((seq_len(100) / 10) + 5)) + rnorm(100, 0, (1 / 3)), Variable_3 = (4 * sin((seq_len(100) / 10) + 10)) + rnorm(100, 1, (1 / 3)))
+
+# Generate the New Axis Limits to Align Zeroes Across the Vertical Axes
+(Final_Vertical_Axis_Limits <- DBM.functions::Aligning_Values_Across_Multiple_Vertical_Axes(Variable_1, Variable_2, Variable_3, Data_Frame = Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function))
+
+# Make Some Plots
+layout(matrix(c(1, 2, 3, 3), ncol = 2, byrow = TRUE), heights = c(0.85, 0.15))
+par(mar = c(4, 4, 4, 8))
+plot(Variable_1 ~ Index, data = Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function, xlab = "", ylab = "", yaxt = "n", pch = 19, main = "All Variables on One Plot\n(Values not Aligned)", col = 2)
+axis(2, at = pretty(Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function$Variable_1))
+mtext(expression(paste(bold("Index"))), 1, line = 2.25)
+mtext(expression(paste(bold("Variable 1"))), 2, line = 2.25, col = 2)
+abline(h = 0, lty = 2, lwd = 2, col = 2)
+par(new = TRUE)
+plot(Variable_2 ~ Index, data = Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function, xlab = "", ylab = "", yaxt = "n", col = 3, pch = 19)
+axis(4, at = pretty(Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function$Variable_2))
+mtext(expression(paste(bold("Variable 2"))), 4, line = 2.25, col = 3)
+abline(h = 0, lty = 2, lwd = 2, col = 3)
+par(new = TRUE)
+plot(Variable_3 ~ Index, data = Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function, xlab = "", ylab = "", yaxt = "n", col = 4, pch = 19)
+axis(4, at = pretty(Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function$Variable_3), line = 4.5)
+mtext(expression(paste(bold("Variable 3"))), 4, line = 6.75, col = 4)
+abline(h = 0, lty = 2, lwd = 2, col = 4)
+plot(Variable_1 ~ Index, data = Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function, xlab = "", ylab = "", yaxt = "n", ylim = Final_Vertical_Axis_Limits[[1]], col = 2, pch = 19, main = "All Variables on One Plot\n(Values Aligned)")
+axis(2, at = pretty(range(Final_Vertical_Axis_Limits[[1]])))
+mtext(expression(paste(bold("Index"))), 1, line = 2.25)
+mtext(expression(paste(bold("Variable 1"))), 2, line = 2.25, col = 2)
+abline(h = 0, lty = 2, lwd = 2)
+par(new = TRUE)
+plot(Variable_2 ~ Index, data = Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function, xlab = "", ylab = "", yaxt = "n", ylim = Final_Vertical_Axis_Limits[[2]], col = 3, pch = 19)
+axis(4, at = pretty(range(Final_Vertical_Axis_Limits[[2]])))
+mtext(expression(paste(bold("Variable 2"))), 4, line = 2.25, col = 3)
+abline(h = 0, lty = 2, lwd = 2)
+par(new = TRUE)
+plot(Variable_3 ~ Index, data = Made_Up_Data_for_the_Aligning_Values_Across_Multiple_Vertical_Axes_Function, xlab = "", ylab = "", yaxt = "n", ylim = Final_Vertical_Axis_Limits[[3]], col = 4, pch = 19)
+axis(4, at = pretty(range(Final_Vertical_Axis_Limits[[3]])), line = 4.5)
+mtext(expression(paste(bold("Variable 3"))), 4, line = 6.75, col = 4)
+abline(h = 0, lty = 2, lwd = 2)
+par(mar = c(1, 1, 1, 1))
+plot(0, type = "n", axes = FALSE, xlab = "", ylab = "")
+legend("top", xpd = TRUE, inset = c(0, -0.3), title = expression(paste(bold("Variable"))), legend = 1:3, col = 2:4, pch = 19, horiz = T)
+```
+
+### `Arranging_Plots_Nicely`
+
+This function generates a plot layout matrix that is as square as possible - in other words, it generates a plot layout matrix whose number of rows and number of columns differ by either `0` (if possible) or `1` (as a last resort).
+
+```{r `Arranging_Plots_Nicely`, fig.dim = c(7, 10)}
+# An Example
+
+# Use a Subset of the 'mtcars' Data Frame
+?mtcars
+Data_Frame <- mtcars[, which(colnames(mtcars) != "vs")]
+# Generate the Layout Matrix
+(Layout_Matrix <- DBM.functions::Arranging_Plots_Nicely(Number_of_Plots = (ncol(mtcars) - 3), Arrangement_Option = "Tall"))
+
+# Make the Figure
+layout(Layout_Matrix, heights = c(1, rep(exp(1), (nrow(Layout_Matrix) - 2)), 1))
+par(mar = c(1, 1, 5, 1))
+plot(0, type = "n", axes = FALSE, xlab = "", ylab = "", main = "\nPlotting the 'mpg' Column Against Other Columns\nFrom the 'mtcars' Data Frame", cex.main = 2.5)
+par(mar = c(5, 4, 4, 2) + 0.1)
+lapply(seq_len(ncol(Data_Frame) - 2), function (x) {
+  plot(Data_Frame$mpg ~ Data_Frame[, which(!(colnames(Data_Frame) %in% c("mpg", "am")))[x]], xlab = colnames(Data_Frame)[which(!(colnames(Data_Frame) %in% c("mpg", "am")))[x]], ylab = "mpg", main = paste0("'mpg' and '", colnames(Data_Frame)[which(!(colnames(Data_Frame) %in% c("mpg", "am")))[x]], "'"), type = "n", cex.lab = 1.5, cex.axis = 1.5, cex.main = 2)
+  lapply(seq_len(length(unique(Data_Frame$am))), function (y) {
+    points(Data_Frame[which(Data_Frame$am == unique(Data_Frame$am)[y]), ]$mpg ~ Data_Frame[which(Data_Frame$am == unique(Data_Frame$am)[y]), which(!(colnames(Data_Frame) %in% c("mpg", "am")))[x]], pch = 19, col = y)
+  })
+})
+par(mar = c(1, 1, 1, 1))
+plot(0, type = "n", axes = FALSE, xlab = "", ylab = "")
+legend("top", horiz = TRUE, title = expression(paste(bold("'am' Column Value"))), legend = unique(Data_Frame$am), col = 1:2, pch = 19, cex = 2)
+```
+
+### `Comparing_Multiple_Independent_Correlation_Coefficients`
+
+This function compares 3 or more correlation coefficients from independent correlations (Levy, 1977). This function generates p values for pairwise correlation coefficient comparisons as well as means separation lettering. It has been cited in several publications (Beghin, 2023; Chue and Yeo, 2022; Findor et al., 2021; Matko and Sedlmeier, 2023).
+
+This function returns a data frame containing p values for each pairwise correlation coefficient comparison, a data frame containing separation lettering, and a data frame containing metadata.
+
+```{r `Comparing_Multiple_Independent_Correlation_Coefficients`}
+# An Example
+
+# Generate Some Made-up Data
+Made_Up_Data_for_the_Comparing_Multiple_Independent_Correlation_Coefficients_Function <- structure(list(Name = c("Correlation A", "Correlation B", "Correlation C", "Correlation D", "Correlation E"), Coefficient_of_Correlation = c(-0.339, 0.307, 0.919, -0.679, -0.495), Sample_Size = c(42L, 10L, 46L, 98L, 63L)), class = "data.frame", row.names = c(NA, -5L))
+
+# Compare the Correlation Coefficients
+DBM.functions::Comparing_Multiple_Independent_Correlation_Coefficients(Coefficient_of_Correlation, Sample_Size, Name, Made_Up_Data_for_the_Comparing_Multiple_Independent_Correlation_Coefficients_Function)
+```
+
+### `Finding_the_Optimal_Sigmoid_Function_Model`
+
+This function determines which [sigmoid function](https://en.wikipedia.org/wiki/Sigmoid_function) best fits a binary response data set (a data set where the response variable contains only `1`s and `0`s) from ten different, fully differentiable sigmoid functions. The functions are the logistic function (`Response = 1 / (1 + exp(-(Intercept + (Slope * Predictor))))`), the hyperbolic tangent (`Response = (0.5 * tanh(Intercept + (Slope * Predictor))) + 0.5`), the arctangent function (`Response = (0.5 * ((2 / pi) * atan((pi / 2) * (Intercept + (Slope * Predictor))))) + 0.5`), the Gudermannian function (`Response = (2 / pi) * atan(tanh((Intercept + (Slope * Predictor)) * pi / 4)) + 0.5`), the error function (`Response = (0.5 * ((2 * pnorm((Intercept + (Slope * Predictor)) * sqrt(2), 0, 1)) - 1)) + 0.5`), a generalised logistic function (`Response = (1 + exp(-(Intercept + (Slope * Predictor)))) ^ (-Exponent)`), an algebraic function (`Response = (0.5 * ((Intercept + (Slope * Predictor)) / sqrt(1 + ((Intercept + (Slope * Predictor)) ^ 2)))) + 0.5`), a more generalised algebraic function (`Response = (0.5 * ((Intercept + (Slope * Predictor)) / ((1 + (abs(Intercept + (Slope * Predictor)) ^ Exponent)) ^ (1 / Exponent)))) + 0.5`), the Gompertz function (`Response = exp(-exp(Intercept + (Slope * Predictor)))`), and the Gompertz function that has been rotated by `pi` radians (`Response = 1 - (exp(-exp(Intercept + (Slope * Predictor))))`). Please note that all of these functions are rotationally symmetric with the exception of the Gompertz function and the Gompertz function that has been rotated by pi radians - these two functions approach one asymptote more quickly than they approach the other. All ten of these functions have been rescaled so that they are asymptotic at the values of 0 and 1 on the vertical axis.
+
+This function returns model parameters for ten different, fully differentiable sigmoid functions and determines which one best fit a binary response data set (where all the response variable values are 1s and 0s). Specifically, this function returns a data table containing each model and goodness-of-fit statistics (deviances and pseudo r squared values), a list of the names of the models, a list of the model coefficients and associated parameters related to their statistical significance, and a list of functions for each model that can be used to generate predicted values.
+
+```{r `Finding_the_Optimal_Sigmoid_Function_Model`, fig.dim = c(7, 5)}
+# An Example
+
+# Generate Some Made-up Data
+Number_of_Observations <- 100
+Minimum_Predictor_Value <- 0
+Maximum_Predictor_Value <- 25
+set.seed(25)
+Predictor_Variable <- runif(Number_of_Observations, Minimum_Predictor_Value, Maximum_Predictor_Value)
+Response_Variable <- rbinom(Number_of_Observations, 1, (Predictor_Variable - Minimum_Predictor_Value) / (Maximum_Predictor_Value - Minimum_Predictor_Value))
+Data_Frame <- data.frame(Predictor_Variable = Predictor_Variable, Response_Variable = Response_Variable)
+
+# See How the Different Sigmoid Functions Perform Modeling the Data
+Function_Output <- DBM.functions::Finding_the_Optimal_Sigmoid_Function_Model(Predictor_Variable, Response_Variable, Data_Frame)
+Function_Output$Output_Table
+Function_Output$Model_Parameters
+assign(paste("Fitted", gsub(" ", "_", Function_Output$Model_Names[[1]]), "Values", sep = "_"), Function_Output$Model_Functions[[1]](seq(min(Data_Frame$Predictor_Variable), max(Data_Frame$Predictor_Variable), by = 0.01)))
+
+# Make a Plot
+Horizontal_Axis_Values <- seq(min(Data_Frame$Predictor_Variable), max(Data_Frame$Predictor_Variable), by = 0.01)
+Vertical_Axis_Values <- lapply(Function_Output$Model_Functions, function (x) {
+  x(Horizontal_Axis_Values)
+})
+par(mar = c(13, 4, 4, 2))
+plot(Response_Variable ~ Predictor_Variable, Data_Frame, pch = 19, xlab = "", ylab = "", main = "Comparing Sigmoid Function Models")
+mtext(expression(paste(bold("Predictor Variable"))), 1, line = 2.25)
+mtext(expression(paste(bold("Response Variable"))), 2, line = 2.25)
+lapply(seq_len(length(Function_Output$Model_Names)), function (x) {
+  points(Vertical_Axis_Values[[x]] ~ Horizontal_Axis_Values, type = "l", col = (x + 1), lwd = 2.5)
+})
+legend("bottom", xpd = TRUE, inset = c(0, -1.575), title = expression(paste(bold("Function (Deviance; Pseudo-R-Squared Value)"))), legend = paste0(gsub("_", " ", gsub("_Model$", "", names(Function_Output$Model_Parameters))), " (", round(as.numeric(Function_Output$Output_Table[complete.cases(Function_Output$Output_Table), ]$Deviance), 3), "; ", round(as.numeric(Function_Output$Output_Table[complete.cases(Function_Output$Output_Table), ]$Pseudo_R_Squared_Value), 5), ")"), col = (seq_len(length(Function_Output$Model_Parameters)) + 1), lty = 1, lwd = 2.5, cex = 0.875)
+```
+
+### `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_With_a_Blocking_Variable`
+
+This function may be used when setting out a study or an experiment (for cases when there is a blocking variable) to optimize the assignments of experimental units to treatment groups. Although [randomization](https://en.wikipedia.org/wiki/Randomization) is typically used to assign treatments to experimental units, sometimes, randomization may unintentionally create treatment groups that are not balanced. For example, perhaps after randomizing, certain treatment groups end up being comprised of experimental units that are bigger or heavier or hotter or shadier or wetter than the experimental units in the other treatment groups are. This undesirable effect may be avoided by using this function, which ensures that means and possibly other higher-order [mathematical moments](https://en.wikipedia.org/wiki/Moment_(mathematics)) (such as variances, skewnesses, and kurtoses) for a particular set of experimental units' variables you've already measured are as similar as possible across treatment groups.
+
+This function was designed for studies or experiments that are [blocked](https://en.wikipedia.org/wiki/Blocking_(statistics)) - it ensures that balance is maintained across treatment groups within blocks. One of the advantages of blocked studies or experiments is that blocks may account for some of the overall variability in the data (sample processing should be done, and measurements should be taken, by block), and if a problem arises with a block (or multiple blocks), this block (or these blocks) may be dropped from the study without losing the balanced structure of the study or experiment. By ensuring that treatment groups are balanced within blocks, this function ensures that if a block (or multiple blocks) must be dropped from the study or experiment, the remaining blocks will still be as balanced as possible since each block was balanced independently.
+
+Please note that randomization is still a very useful technique - if you suspect that you did not measure a suite of experimental unit variables that may have a strong influence on the response variables in your study or experiment, randomization may be a better method than this optimization method.
+
+Also, please note that if there are more than one blocking variable, the `interaction()` function should be used to create a single blocking variable from the multiple original blocking variables before passing the `Blocking_Variable` argument to the function.
+
+Also, please note that this function may take an extremely long time to run when there are many potential experimental units!
+
+This function returns optimal treatment group assignments (for cases when there is a blocking variable). Since experimental units are assigned to treatment groups separately (in a completely independent fashion) by block, each of the main list elements of the function's output correspond to a different block.
+
+This algorithm works by first splitting the data by the blocking variable. All subsequent steps will be performed on each block completely independently. Next, each variable is relativized by subtracting the mean value and dividing by the standard deviation, thus converting each variable to a z score. Dummy variables are used for categorical variables (for each categorical variable, there is one dummy variable for each category) and relativized in the same fashion. It is these relativized variables that are used in the algorithm. Next, all possible treatment group combinations for a given number of treatment groups and a given number of experimental units from each block in each treatment group are generated. (This algorithm assumes that treatment groups will be balanced and all contain the same numbers of experimental units from each block.) Please note that if the user includes extra experimental units for one block or multiple blocks (for example, if the number of experimental units supplied to the function from one block is greater than the product of the number of treatment groups and the number of experimental units from each block in each treatment group), this function will find the optimal combination of experimental units within each block and exclude the unnecessary experimental units in the final output. Next, calculate mathematical moments (integer powers of the residuals divided by the standard deviation, or, in this case, since z scores are already centered at `0` and scaled by standard deviations, integer powers of the relativized values) of each variable in each group for each possible combination within each block. It is important to note that when normally calculating mathematical moments, means are first subtracted from values and then these differences are divided by standard deviations, but in the case of this algorithm, if this method of calculating moments is employed, each first-order moment (which corresponds to the integer power of `1`) would be `0`, and each second-order moment (which corresponds to the integer power of `2`) would be `1`, and then comparisons cannot be made across groups within combinations. In order to create a method that is truly modular for each moment, the relativized values for each variable are simply raised to the integer powers without again subtracting means and dividing by standard deviations within each group for each combination (as both of these steps - subtracting the means and dividing by the standard deviations - were already performed before grouping combinations were generated). I will make the conjecture here that the resulting grouping combinations found to be optimal using this method will still be as balanced as possible. It is also important to note that mathematical moments are only calculated up to the order of the number of experimental units from each block in each treatment group - for example, if there were `3` experimental units from each block in each treatment group, the first-, second-, and third-order moments would be calculated, but no higher-order moments would be calculated. With these moments calculated, the next step is to determine how similar they are across treatment groups within each combination (it goes without saying that all these steps are performed completely separately for each block). To perform this step, each possible treatment group pair within each combination is compared - for each variable and for each possible treatment group pair separately, differences between each moment are determined and the absolute value of these differences is calculated (to ensure, much like when calculating variances, that their sum will not be `0` later on). Next, because higher-order moment differences are typically much larger than lower-order moment differences due to their higher integer powers, the absolute values of the moment differences (henceforth, 'absolute values of moment differences' will simply be referred to as 'moment differences') are themselves relativized by dividing by the mean value of each moment difference (this relativization step is done separately, or independently, for each variable). Although the expected value of the difference of two probability distributions (such as the standard normal distribution) may be calculated theoretically, it is not possible to assume any theoretical probability distribution for empirical observations - the central limit theorem cannot apply when the number of experimental units in each treatment group is finite (and often not large) - and thus this step is done empirically using actual average moment differences. This relativization step sets each moment on an equal playing field and allows for more meaningful comparisons across moments. Next, these relativized moment differences are weighed. They are first weighed by variable, and the user has the option to supply variable weights to the function (the default is to weigh each variable equally). It should be noted that, for categorical variables, variable weights are split up equally across the dummy variables associated with a particular categorical variable - for example, for a categorical variable with a user-defined weight of `0.5` and with `4` levels, each dummy variable associated with this variable would receive a weight of `0.125` (`0.5 / 4`). They are then weighed by moment, with the assumption that lower-order moments should be weighed more heavily than higher-order moments. The user has the option to supply moment weights to the function as well, although by default, each moment is weighed more heavily than the next-highest moment by a factor of [the golden ratio](https://en.wikipedia.org/wiki/Golden_ratio) (`(1 + sqrt(5)) / 2`). Finally, the weighted, relativized moment differences are summed across possible treatment group pairs, across variables, and across moments within grouping combinations within each block to obtain a single value for each grouping combination within each block. These single values for each grouping combination, which I call 'combination scores', are ordered within each block, and the grouping combinations with the lowest score are deemed optimal for each block.
+
+```{r `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_With_a_Blocking_Variable`}
+# An Example
+
+# Generate Some Made-up Data
+set.seed(2024)
+Data_Frame <- data.frame(Tree_Identifier = paste("Tree", seq_len(40), sep = "_"), Block = rep(1:4, each = 10, length.out = 40), Diameter_at_Breast_Height = round(runif(40, 25, 50), 1), Height = round(runif(40, 30, 40), 1), Crown_Class = sample(c("Dominant", "Codominant", "Intermediate", "Overtopped"), 40, replace = TRUE), Significant_Defect_Present = sample(c("Yes", "No"), 40, replace = TRUE, prob = c(0.05, 0.95)))
+
+# Determine Which Combinations Are Optimal for Assigning Experimental Units to Treatment Groups
+Optimal_Group_Assignments_by_Block <- Optimally_Assigning_Experimental_Units_to_Treatment_Groups_With_a_Blocking_Variable(Diameter_at_Breast_Height, Height, Crown_Class, Significant_Defect_Present, Identifiers = Tree_Identifier, Blocking_Variable = Block, Data_Frame = Data_Frame, Number_of_Treatment_Groups = 4, Number_of_Experimental_Units_From_Each_Block_in_Each_Treatment_Group = 2)
+(The_Best_3_Grouping_Combinations_for_Each_Block <- lapply(Optimal_Group_Assignments_by_Block, `[`, seq_len(3)))
+```
+
+Why is it important to consider higher-order moments? Why can’t just variable means be held constant across groups?
+
+If the relationships between the measurements that are being used in this function to balance treatment groups (the ‘input variables’, like diameter at breast height, height, and crown class in the previous example) and the response variable or variables in the study or experiment (these response variables have not been measured yet - they will be measured after the treatment groups have been assigned and when the study or experiment begins) are all linear, it would be fine to consider only the means and to ignore higher-order moments. If, however, any of these relationships are not exactly linear – if, for example, one of these relationships were curvilinear – it is important to consider higher-order moments. For example, consider a relationship that follows [Michaelis-Menten kinetics](https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics) (`Response = (Constant_1 * Predictor) / (Constant_2 + Predictor)`), which is monotonically increasing, concave down, and approaches an asymptote at the vertical axis value of `Constant_1`. In the linear example, if two groups' mean input variable values are equal for a particular input variable, the two groups' mean response variable values are also equal (see the panel on the left in the figure below). In the curvilinear, Michaelis-Menten example, however, if the two groups' mean input variable values are equal for a particular input variable, the two groups' mean response variable values are almost never equal (see the panel on the right in the figure below). This example alone should be enough to justify the inclusion of the second-order moment (the variance) when balancing treatment groups - if input variable variances are held as equal as possible along with input variable means across treatment groups, the response variable means may be closer across treatment groups - and the same rationale can be applied to higher-order moments as well. Since truly linear relationships are uncommon in biology and ecology, it is important to consider higher-order moments when balancing treatment groups.
+
+``` {r `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_With_a_Blocking_Variable` Further Explanation, fig.dim = c(7, 5)}
+# Generate Some Made-up Data and Some Graphical Parameters
+Input_Variable <- seq(0, 20, 0.01)
+Group_1_Input_Variable_Values <- c(8, 10)
+Group_2_Input_Variable_Values <- c(2, 16)
+par(mfrow = c(1, 2), mar = c(4, 4, 4, 1))
+
+# Look at a Linear Example
+Slope <- 3
+Intercept <- 1
+Linear_Response <- (Slope * Input_Variable) + Intercept
+plot(Linear_Response ~ Input_Variable, pch = 20, main = "Linear\nExample", xlab = "Input Variable", ylab = "Linear Response Variable")
+Axis_Limits <- par("usr")
+Group_1_Linear_Response_Variable_Values <- (Slope * Group_1_Input_Variable_Values) + Intercept
+Group_2_Linear_Response_Variable_Values <- (Slope * Group_2_Input_Variable_Values) + Intercept
+lapply(seq_len(2), function (x) {
+  segments(Group_1_Input_Variable_Values[x], Axis_Limits[3], Group_1_Input_Variable_Values[x], Group_1_Linear_Response_Variable_Values[x], col = 2, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_1_Input_Variable_Values[x], Group_1_Linear_Response_Variable_Values[x], Axis_Limits[1], Group_1_Linear_Response_Variable_Values[x], col = 2, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_2_Input_Variable_Values[x], Axis_Limits[3], Group_2_Input_Variable_Values[x], Group_2_Linear_Response_Variable_Values[x], col = 3, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_2_Input_Variable_Values[x], Group_2_Linear_Response_Variable_Values[x], Axis_Limits[1], Group_2_Linear_Response_Variable_Values[x], col = 3, lwd = 2.5)
+})
+
+# Look at a Curvilinear Example
+Constant_1 <- 2
+Constant_2 <- 5
+Curvilinear_Response <- (Constant_1 * Input_Variable) / (Constant_2 + Input_Variable)
+plot(Curvilinear_Response ~ Input_Variable, pch = 20, main = "Curvilinear (Michaelis-Menten)\nExample", xlab = "Input Variable", ylab = "Curvilinear (Michaelis-Menten) Response Variable")
+Axis_Limits <- par("usr")
+Group_1_Curvilinear_Response_Values <- (Constant_1 * Group_1_Input_Variable_Values) / (Constant_2 + Group_1_Input_Variable_Values)
+Group_2_Curvilinear_Response_Values <- (Constant_1 * Group_2_Input_Variable_Values) / (Constant_2 + Group_2_Input_Variable_Values)
+lapply(seq_len(2), function (x) {
+  segments(Group_1_Input_Variable_Values[x], Axis_Limits[3], Group_1_Input_Variable_Values[x], Group_1_Curvilinear_Response_Values[x], col = 2, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_1_Input_Variable_Values[x], Group_1_Curvilinear_Response_Values[x], Axis_Limits[1], Group_1_Curvilinear_Response_Values[x], col = 2, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_2_Input_Variable_Values[x], Axis_Limits[3], Group_2_Input_Variable_Values[x], Group_2_Curvilinear_Response_Values[x], col = 3, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_2_Input_Variable_Values[x], Group_2_Curvilinear_Response_Values[x], Axis_Limits[1], Group_2_Curvilinear_Response_Values[x], col = 3, lwd = 2.5)
+})
+
+# Look at the Resulting Response Variable Means Across Both Groups
+data.frame(Group = 1:2, Mean_Input_Variable_Value = c(mean(Group_1_Input_Variable_Values), mean(Group_2_Input_Variable_Values)), Mean_Linear_Response_Variable_Value = c(mean(Group_1_Linear_Response_Variable_Values), mean(Group_2_Linear_Response_Variable_Values)), Mean_Curvilinear_Response_Variable_Value = c(mean(Group_1_Curvilinear_Response_Values), mean(Group_2_Curvilinear_Response_Values)))
+```
+
+### `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_Without_a_Blocking_Variable`
+
+This function may be used when setting out a study or an experiment (for cases when there is no blocking variable) to optimize the assignments of experimental units to treatment groups. Although [randomization](https://en.wikipedia.org/wiki/Randomization) is typically used to assign treatments to experimental units, sometimes, randomization may unintentionally create treatment groups that are not balanced. For example, perhaps after randomizing, certain treatment groups end up being comprised of experimental units that are bigger or heavier or hotter or shadier or wetter than the experimental units in the other treatment groups are. This undesirable effect may be avoided by using this function, which ensures that means and possibly other higher-order [mathematical moments](https://en.wikipedia.org/wiki/Moment_(mathematics)) (such as variances, skewnesses, and kurtoses) for a particular set of experimental units' variables you've already measured are as similar as possible across treatment groups.
+
+Please note that randomization is still a very useful technique - if you suspect that you did not measure a suite of experimental unit variables that may have a strong influence on the response variables in your study or experiment, randomization may be a better method than this optimization method.
+
+Also, please note that this function may take an extremely long time to run when there are many potential experimental units!
+
+This function returns optimal treatment group assignments (for cases when there is no blocking variable).
+
+This algorithm works by first relativizing each variable of interest by subtracting the mean value and dividing by the standard deviation, thus converting each variable to a z score. Dummy variables are used for categorical variables (for each categorical variable, there is one dummy variable for each category) and relativized in the same fashion. It is these relativized variables that are used in the algorithm. Next, all possible treatment group combinations for a given number of treatment groups and a given number of experimental units in each treatment group are generated. (This algorithm assumes that treatment groups will be balanced and all contain the same numbers of experimental units.) Please note that if the user includes extra experimental units (if the number of experimental units supplied to the function is greater than the product of the number of treatment groups and the number of experimental units in each treatment group), this function will find the optimal combination of experimental units and exclude the unnecessary experimental units in the final output. Next, calculate mathematical moments (integer powers of the residuals, or, in this case, since z scores are already centered at `0` and scaled by standard deviations, integer powers of the relativized values) of each variable in each group for each possible combination. It is important to note that when normally calculating mathematical moments, means are first subtracted from values and then these differences are divided by standard deviations, but in the case of this algorithm, if this method of calculating moments is employed, each first-order moment (which corresponds to the integer power of `1`) would be `0`, and each second-order moment (which corresponds to the integer power of `2`) would be `1`, and then comparisons cannot be made across groups within combinations. In order to create a method that is truly modular for each moment, the relativized values for each variable are simply raised to the integer powers without again subtracting means and dividing by standard deviations within each group for each combination (as both of these steps - subtracting the means and dividing by the standard deviations - were already performed before grouping combinations were generated). I will make the conjecture here that the resulting grouping combinations found to be optimal using this method will still be as balanced as possible. It is also important to note that mathematical moments are only calculated up to the order of the number of experimental units in each treatment group - for example, if there were `3` experimental units in each treatment group, the first-, second-, and third-order moments would be calculated, but no higher-order moments would be calculated. With these moments calculated, the next step is to determine how similar they are across treatment groups within each combination. To perform this step, each possible treatment group pair within each combination is compared - for each variable and for each possible treatment group pair separately, differences between each moment are determined and the absolute value of these differences is calculated (to ensure, much like when calculating variances, that their sum will not be `0` later on). Next, because higher-order moment differences are typically much larger than lower-order moment differences due to their higher integer powers, the absolute values of the moment differences (henceforth, 'absolute values of moment differences' will simply be referred to as 'moment differences') are themselves relativized by dividing by the mean value of each moment difference (this relativization step is done separately, or independently, for each variable). Although the expected value of the  difference of two probability distributions (such as the standard normal distribution) may be calculated theoretically, it is not possible to assume any theoretical probability distribution for empirical observations - the central limit theorem cannot apply when the number of experimental units in each treatment group is finite (and often not large) - and thus this step is done empirically using actual average moment differences. This relativization step sets each moment on an equal playing field and allows for more meaningful comparisons across moments. Next, these relativized moment differences are weighed. They are first weighed by variable, and the user has the option to supply variable weights to the function (the default is to weigh each variable equally). It should be noted that, for categorical variables, variable weights are split up equally across the dummy variables associated with a particular categorical variable - for example, for a categorical variable with a user-defined weight of `0.5` and with `4` levels, each dummy variable associated with this variable would receive a weight of `0.125` (`0.5 / 4`). They are then weighed by moment, with the assumption that lower-order moments should be weighed more heavily than higher-order moments. The user has the option to supply moment weights to the function as well, although by default, each moment is weighed more heavily than the next-highest moment by a factor of [the golden ratio](https://en.wikipedia.org/wiki/Golden_ratio) (`(1 + sqrt(5)) / 2`). Finally, the weighted, relativized moment differences are summed across possible treatment group pairs, across variables, and across moments within grouping combinations to obtain a single value for each grouping combination. These single values for each grouping combination, which I call 'combination scores', are ordered, and the grouping combinations with the lowest score are deemed optimal.
+
+```{r `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_Without_a_Blocking_Variable`}
+# An Example
+
+# Generate Some Made-up Data
+set.seed(13)
+Data_Frame <- data.frame(Tree_Identifier = paste("Tree", seq_len(13), sep = "_"), Diameter_at_Breast_Height = round(runif(13, 25, 50), 1), Height = round(runif(13, 30, 40), 1), Crown_Class = sample(c("Dominant", "Codominant", "Intermediate", "Overtopped"), 13, replace = TRUE), Significant_Defect_Present = sample(c("Yes", "No"), 13, replace = TRUE, prob = c(0.05, 0.95)))
+
+# Determine Which Combinations Are Optimal for Assigning Experimental Units to Treatment Groups
+Optimal_Group_Assignments <- Optimally_Assigning_Experimental_Units_to_Treatment_Groups_Without_a_Blocking_Variable(Diameter_at_Breast_Height, Height, Crown_Class, Significant_Defect_Present, Identifiers = Tree_Identifier, Data_Frame = Data_Frame, Number_of_Treatment_Groups = 3, Number_of_Experimental_Units_in_Each_Treatment_Group = 4)
+(The_Best_Three_Possible_Grouping_Combinations <- Optimal_Group_Assignments[seq_len(3)])
+```
+
+Why is it important to consider higher-order moments? Why can’t just variable means be held constant across groups?
+
+If the relationships between the measurements that are being used in this function to balance treatment groups (the ‘input variables’, like diameter at breast height, height, and crown class in the previous example) and the response variable or variables in the study or experiment (these response variables have not been measured yet - they will be measured after the treatment groups have been assigned and when the study or experiment begins) are all linear, it would be fine to consider only the means and to ignore higher-order moments. If, however, any of these relationships are not exactly linear – if, for example, one of these relationships were curvilinear – it is important to consider higher-order moments. For example, consider a relationship that follows [Michaelis-Menten kinetics](https://en.wikipedia.org/wiki/Michaelis%E2%80%93Menten_kinetics) (`Response = (Constant_1 * Predictor) / (Constant_2 + Predictor)`), which is monotonically increasing, concave down, and approaches an asymptote at the vertical axis value of `Constant_1`. In the linear example, if two groups' mean input variable values are equal for a particular input variable, the two groups' mean response variable values are also equal (see the panel on the left in the figure below). In the curvilinear, Michaelis-Menten example, however, if the two groups' mean input variable values are equal for a particular input variable, the two groups' mean response variable values are almost never equal (see the panel on the right in the figure below). This example alone should be enough to justify the inclusion of the second-order moment (the variance) when balancing treatment groups - if input variable variances are held as equal as possible along with input variable means across treatment groups, the response variable means may be closer across treatment groups - and the same rationale can be applied to higher-order moments as well. Since truly linear relationships are uncommon in biology and ecology, it is important to consider higher-order moments when balancing treatment groups.
+
+``` {r `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_Without_a_Blocking_Variable` Further Explanation, fig.dim = c(7, 5)}
+# Generate Some Made-up Data and Some Graphical Parameters
+Input_Variable <- seq(0, 20, 0.01)
+Group_1_Input_Variable_Values <- c(8, 10)
+Group_2_Input_Variable_Values <- c(2, 16)
+par(mfrow = c(1, 2), mar = c(4, 4, 4, 1))
+
+# Look at a Linear Example
+Slope <- 3
+Intercept <- 1
+Linear_Response <- (Slope * Input_Variable) + Intercept
+plot(Linear_Response ~ Input_Variable, pch = 20, main = "Linear\nExample", xlab = "Input Variable", ylab = "Linear Response Variable")
+Axis_Limits <- par("usr")
+Group_1_Linear_Response_Variable_Values <- (Slope * Group_1_Input_Variable_Values) + Intercept
+Group_2_Linear_Response_Variable_Values <- (Slope * Group_2_Input_Variable_Values) + Intercept
+lapply(seq_len(2), function (x) {
+  segments(Group_1_Input_Variable_Values[x], Axis_Limits[3], Group_1_Input_Variable_Values[x], Group_1_Linear_Response_Variable_Values[x], col = 2, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_1_Input_Variable_Values[x], Group_1_Linear_Response_Variable_Values[x], Axis_Limits[1], Group_1_Linear_Response_Variable_Values[x], col = 2, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_2_Input_Variable_Values[x], Axis_Limits[3], Group_2_Input_Variable_Values[x], Group_2_Linear_Response_Variable_Values[x], col = 3, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_2_Input_Variable_Values[x], Group_2_Linear_Response_Variable_Values[x], Axis_Limits[1], Group_2_Linear_Response_Variable_Values[x], col = 3, lwd = 2.5)
+})
+
+# Look at a Curvilinear Example
+Constant_1 <- 2
+Constant_2 <- 5
+Curvilinear_Response <- (Constant_1 * Input_Variable) / (Constant_2 + Input_Variable)
+plot(Curvilinear_Response ~ Input_Variable, pch = 20, main = "Curvilinear (Michaelis-Menten)\nExample", xlab = "Input Variable", ylab = "Curvilinear (Michaelis-Menten) Response Variable")
+Axis_Limits <- par("usr")
+Group_1_Curvilinear_Response_Values <- (Constant_1 * Group_1_Input_Variable_Values) / (Constant_2 + Group_1_Input_Variable_Values)
+Group_2_Curvilinear_Response_Values <- (Constant_1 * Group_2_Input_Variable_Values) / (Constant_2 + Group_2_Input_Variable_Values)
+lapply(seq_len(2), function (x) {
+  segments(Group_1_Input_Variable_Values[x], Axis_Limits[3], Group_1_Input_Variable_Values[x], Group_1_Curvilinear_Response_Values[x], col = 2, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_1_Input_Variable_Values[x], Group_1_Curvilinear_Response_Values[x], Axis_Limits[1], Group_1_Curvilinear_Response_Values[x], col = 2, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_2_Input_Variable_Values[x], Axis_Limits[3], Group_2_Input_Variable_Values[x], Group_2_Curvilinear_Response_Values[x], col = 3, lwd = 2.5)
+})
+lapply(seq_len(2), function (x) {
+  segments(Group_2_Input_Variable_Values[x], Group_2_Curvilinear_Response_Values[x], Axis_Limits[1], Group_2_Curvilinear_Response_Values[x], col = 3, lwd = 2.5)
+})
+
+# Look at the Resulting Response Variable Means Across Both Groups
+data.frame(Group = 1:2, Mean_Input_Variable_Value = c(mean(Group_1_Input_Variable_Values), mean(Group_2_Input_Variable_Values)), Mean_Linear_Response_Variable_Value = c(mean(Group_1_Linear_Response_Variable_Values), mean(Group_2_Linear_Response_Variable_Values)), Mean_Curvilinear_Response_Variable_Value = c(mean(Group_1_Curvilinear_Response_Values), mean(Group_2_Curvilinear_Response_Values)))
+```
+
+
+## Data Frames
+
+### `Sugar_Maple_Data`
+
+This data frame frame may be used with the `Aligning_Values_Across_Multiple_Vertical_Axes` function - the `Sap_Flow` and `Wood_Temperature` columns in this data frame can be aligned across primary and secondary vertical axes at the values of `0` as shown ibn the following plot.
+
+``` {r `Sugar_Maple_Data`, fig.dim = c(7, 5)}
+# An Example
+
+# Load the Data Frame
+data("Sugar_Maple_Data", package = "DBM.functions")
+
+# Read About the Data Frame
+?Sugar_Maple_Data
+
+# Generate the Axis Limits
+(Axis_Limits <- Aligning_Values_Across_Multiple_Vertical_Axes(Sap_Flow, Wood_Temperature, Data_Frame = Sugar_Maple_Data))
+
+# Make a Plot
+par(mar = c(12, 4, 4, 4))
+plot(Sap_Flow ~ Time, Sugar_Maple_Data, ylim = Axis_Limits$Sap_Flow, xlab = "", ylab = "", pch = 20, col = 4, main = "Sugar Maple Sap Flow and Wood Temperature Time-Series Plot\n(Durham, NH; 2023; 1-cm Sapwood Depth)")
+mtext(expression(paste(bold("Sap Flow (cm * hr" ^ "-1" * ")"))), 2, line = 2.5)
+mtext(expression(paste(bold("Time"))), 1, line = 2.5)
+par(new = TRUE)
+plot(Wood_Temperature ~ Time, Sugar_Maple_Data, xaxt = "n", yaxt = "n", xlab = "", ylab = "", ylim = Axis_Limits$Wood_Temperature, pch = 20, col = 2)
+axis(4, at = pretty(range(Axis_Limits$Wood_Temperature)))
+mtext(expression(paste(bold("Wood Temperature (˚ C)"))), 4, line = 2.5)
+abline(h = 0, lty = 2, lwd = 3)
+legend("bottom", xpd = TRUE, inset = c(0, -0.8), title = expression(paste(bold("Variable"))), legend = c("Sap Flow", "Wood Temperature"), pch = 19, col = c(4, 2), horiz = TRUE)
+legend("bottom", xpd = TRUE, inset = c(0, -1.2), title = expression(paste(bold("Reference Line"))), legend = c(expression(paste("Sap Flow = 0 cm * hr" ^ "-1" * " and Wood Temperature = 0 ˚ C"))), lty = 2, lwd = 3, horiz = TRUE)
+```
+
+
+## Works Cited
+
+Beghin, G. 2023. Does the Lay Concept of Mental Disorder Necessitate a Dysfunction? Advances in Experimental Philosophy of Medicine, edited by Kristien Hens and Andreas De Block. Bloomsbury Publishing. Pp. 71-96.
+
+Chue, K.L., and A. Yeo. 2022. Exploring associations of positive relationships and adolescent well-being across cultures. Youth Soc. 00:1-12.
+
+Findor, A., M. Hruska, P. Jankovská, and M. Pobudová. 2021. Re-examining public opinion preferences for migrant categorizations: “Refugees” are evaluated more negatively than “migrants” and “foreigners” related to participants’ direct, extended, and mass-mediated intergroup contact experiences. Int. J. Intercult. Relat. 80:262-273.
+
+Levy, K.J. 1977. Pairwise comparisons involving unequal sample sizes associated with correlations, proportions or variances. Br. J. Math. Stat. Psychol. 30:137-139.
+
+Matko, K., and P. Sedlmeier. 2023. Which meditation technique for whom? An experimental single-case study comparing concentrative, humming, observing-thoughts, and walking meditation.
+
+Moore, D.B. 2024. `DBM.functions`: A Variety of Functions for a Variety of Applications. R package version 0.0.0.9000. https://github.com/davidblakneymoore/DBM.functions.
