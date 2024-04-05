@@ -39,4 +39,3 @@ Levy, K.J. 1977. Pairwise comparisons involving unequal sample sizes associated 
 Matko, K., and P. Sedlmeier. 2023. Which meditation technique for whom? An experimental single-case study comparing concentrative, humming, observing-thoughts, and walking meditation.
 
 Moore, D.B. 2024. `DBM.functions`: A Variety of Functions for a Variety of Applications. R package version 0.0.0.9000. https://github.com/davidblakneymoore/DBM.functions.
-![image](https://github.com/davidblakneymoore/DBM.functions/assets/46967676/3953709f-f4af-404e-ab40-4316d2090183)
