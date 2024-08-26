@@ -3,7 +3,7 @@
 
 #### Overview
 
-This R package, which has no dependencies, contains a variety of functions for a variety of applications. Download it by running the line of code `devtools::install_github("davidblakneymoore/DBM.functions")`. For a much more detailed description of some of these functions, please read [the vignette](https://github.com/davidblakneymoore/DBM.functions/blob/main/vignettes/DBM.functions.Rmd).
+This R package, which has no dependencies, contains a variety of functions for a variety of applications. Download it by running the line of code `devtools::install_github("davidblakneymoore/DBM.functions")`.
 
 
 #### Functions
@@ -29,6 +29,8 @@ The function `Making_Reasonable_Scale_Bars()` generates nice round numbers for s
 The function `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_With_a_Blocking_Variable()` assigns experimental units to treatment groups (for cases when there is a blocking variable) in a way that ensures that treatment groups are as balanced as possible for a particular set of experimental units' variables. This function works by calculating means and possibly other higher-order mathematical moments (such as variances, skewnesses, and kurtoses) for a particular set of experimental units' variables that have already been measured and, out of every single possible grouping arrangement, choosing the one that holds these moments as similar as possible across treatment groups.
 
 The function `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_Without_a_Blocking_Variable()` assigns experimental units to treatment groups (for cases when there is no blocking variable) in a way that ensures that treatment groups are as balanced as possible for a particular set of experimental units' variables. This function works by calculating means and possibly other higher-order mathematical moments (such as variances, skewnesses, and kurtoses) for a particular set of experimental units' variables that have already been measured and, out of every single possible grouping arrangement, choosing the one that holds these moments as similar as possible across treatment groups.
+
+The function `Removing_Matrix_Rows_and_Columns_Optimally` removes missing or non-finite values from matrices by means of row and column deletions. These deletions are performed in a way that ensures that the maximum number of good (non-missing or finite) values are retained in the resulting matrix.
 
 
 #### Data Frames
