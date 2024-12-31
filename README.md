@@ -46,7 +46,7 @@ Chue, K.L., and A. Yeo. 2022. Exploring associations of positive relationships a
 
 Findor, A., M. Hruska, P. Jankovská, and M. Pobudová. 2021. Re-examining public opinion preferences for migrant categorizations: “Refugees” are evaluated more negatively than “migrants” and “foreigners” related to participants’ direct, extended, and mass-mediated intergroup contact experiences. Int. J. Intercult. Relat. 80:262-273.
 
-Karakai, D., and R. Moskotina. 2024. Religious involvement over time: Assessing measurement invariance of the Religious Involvement scale in Ukraine. Serv. Res. Methods. 17:51-62.
+Karakai, D., and R. Moskotina. 2024. Religious involvement over time: Assessing measurement invariance of the Religious Involvement scale in Ukraine. Sociology: Theory, Methods, Marketing. 4:96–110.
 
 Levy, K.J. 1977. Pairwise comparisons involving unequal sample sizes associated with correlations, proportions or variances. Br. J. Math. Stat. Psychol. 30:137-139.
 
