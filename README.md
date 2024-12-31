@@ -14,7 +14,7 @@ The function `Arranging_Plots_Nicely()` generates a plot layout matrix that is a
 
 The function `Attempting_to_Diagonalize_a_Matrix_Based_on_Its_Full_Diagonal()` performs row exchanges and column exchanges on a matrix until the largest entries in the matrix lie as close as possible to the full diagonal and the smallest entries in the matrix lie as far as possible from the full diagonal. This procedure is useful for creating bipartite interaction matrix visualization plots where the species (nodes) from different trophic levels that interact more frequently are closer together and species (nodes) that interact less frequently are farther apart on the bipartite interaction visualization plot.
 
-The function `Comparing_Multiple_Independent_Correlation_Coefficients()` compares multiple correlation coefficients from independent correlations (Levy, 1977). This function generates p values for pairwise correlation coefficient comparisons as well as means separation lettering. It has been cited in several publications (Beghin, 2023; Chue and Yeo, 2022; Findor et al., 2021; Karakai and Moskotina, 2024; Matko and Sedlmeier, 2023).
+The function `Comparing_Multiple_Independent_Correlation_Coefficients()` compares multiple correlation coefficients from independent correlations (Levy, 1977). This function generates p values for pairwise correlation coefficient comparisons as well as means separation lettering. It has been cited in several publications (Beghin, 2023; Chue and Yeo, 2022; Findor et al., 2021; Hens et al., 2023; Karakai and Moskotina, 2024; Matko and Sedlmeier, 2023).
 
 The function `Finding_the_Full_Diagonal_of_a_Matrix()` finds the full diagonal of a matrix. A full diagonal of a matrix is the diagonal of the matrix that is the line segment that starts at the entry in the first row and the first column of the matrix and that ends at the entry in the last row and the last column of the matrix. If the numbers of rows and columns are coprime, the only two matrix entries that fall perfectly along the full diagonal are its two endpoints; when the numbers of rows and coliumns are not coprime, there will be more than two elements of the full diagonal. For square matrices, the main diagonal and the full diagonal are identical, but for non-square matrices, the main diagonal and the full diagonal are not identical.
 
@@ -45,6 +45,8 @@ Beghin, G. 2023. Does the Lay Concept of Mental Disorder Necessitate a Dysfuncti
 Chue, K.L., and A. Yeo. 2022. Exploring associations of positive relationships and adolescent well-being across cultures. Youth Soc. 00:1-12.
 
 Findor, A., M. Hruska, P. Jankovská, and M. Pobudová. 2021. Re-examining public opinion preferences for migrant categorizations: “Refugees” are evaluated more negatively than “migrants” and “foreigners” related to participants’ direct, extended, and mass-mediated intergroup contact experiences. Int. J. Intercult. Relat. 80:262-273.
+
+Hens, K., J.R. Beebe, A. De Block, and J. Sytsma (Eds.). 2023. Advances in Experimental Philosophy of Medicine. Bloomsbury Publishing.
 
 Karakai, D., and R. Moskotina. 2024. Religious involvement over time: Assessing measurement invariance of the Religious Involvement scale in Ukraine. Sociology: Theory, Methods, Marketing. 4:96–110.
 
