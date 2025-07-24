@@ -8,7 +8,7 @@ This R package, which has no dependencies, contains a variety of functions for a
 
 #### Functions
 
-The `Adding_a_Text_Box_to_a_Histogram` function may be used to determine optimal vertical-axis limits of histograms when a text box is to be added above all the histogram bars and within the plotting area. This function minimizes unused plotting space in the plotting window while plotting the desired text at the desired size. [Here](https://raw.githubusercontent.com/davidblakneymoore/DBM.functions/refs/heads/main/Example%20Figure%20for%20the%20Adding_a_Text_Box_to_a_Histogram%20Function.jpeg) is an example of what this figure can do.
+The `Adding_a_Text_Box_to_the_Top_of_a_Histogram` function may be used to determine optimal vertical-axis limits of histograms when a text box is to be added above all the histogram bars and within the plotting area. This function minimizes unused plotting space in the plotting window while plotting the desired text at the desired size. [Here](https://raw.githubusercontent.com/davidblakneymoore/DBM.functions/refs/heads/main/Example%20Figure%20for%20the%20Adding_a_Text_Box_to_a_Histogram%20Function.jpeg) is an example of what this figure can do.
 
 The function `Aligning_Values_Across_Multiple_Vertical_Axes` generates axis limits for aligning values across multiple vertical axes on plots. [Here](https://raw.githubusercontent.com/davidblakneymoore/DBM.functions/main/Aligning%20Three%20Variables%20Across%20Three%20Vertical%20Axes%20Figure.jpeg) and [here](https://raw.githubusercontent.com/davidblakneymoore/DBM.functions/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg) are example figures that used this function to align values across multiple vertical axes.
 
