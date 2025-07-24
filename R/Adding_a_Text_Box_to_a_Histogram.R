@@ -330,7 +330,7 @@ Adding_a_Text_Box_to_a_Histogram <- function (Values, Text, Text_Size = 1, ...) 
   Text_Height <- strheight(Text) * Text_Size
   Total_Vertical_Span <- (max(Histogram_Information$density) + Text_Height) / (1 - (3 * Proportion_of_Space_Around_the_Histogram_Top_and_Bottom))
   Extra_Space <- Proportion_of_Space_Around_the_Histogram_Top_and_Bottom * Total_Vertical_Span
-  New_Vertical_Axis_Limits <- c(-Extra_Space, max(Histogram_Information$density) + Text_Height + (2 * Extra_Space))
+  New_Vertical_Axis_Limits <- c(0, max(Histogram_Information$density) + Extra_Space + Text_Height)
   if (identical(Vertical_Axis_Limits, New_Vertical_Axis_Limits)) {
     list(Vertical_Axis_Limits = New_Vertical_Axis_Limits, Text_Vertical_Coordinate = New_Vertical_Axis_Limits[2] - (Text_Height / 2))
   } else if (!identical(Vertical_Axis_Limits, New_Vertical_Axis_Limits)) {
