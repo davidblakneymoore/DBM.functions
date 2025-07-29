@@ -46,6 +46,8 @@ The function `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_With_a_
 
 The function `Optimally_Assigning_Experimental_Units_to_Treatment_Groups_Without_a_Blocking_Variable` assigns experimental units to treatment groups (for cases when there is no blocking variable) in a way that ensures that treatment groups are as balanced as possible for a particular set of experimental units' variables. This function works by calculating means and possibly other higher-order mathematical moments (such as variances, skewnesses, and kurtoses) for a particular set of experimental units' variables that have already been measured and, out of every single possible grouping arrangement, choosing the one that holds these moments as similar as possible across treatment groups. This function was heavily inspired by my good friend Sam Zuckerman's work.
 
+The function `Ordinalizing_Integers` takes integers and adds the appropriate ordinal suffix. For example, it takes `1` and returns `"1st"`, it takes `2` and returns `"2nd"`, and it takes `3` and returns `"3rd"`.
+
 The function `Removing_Matrix_Rows_and_Columns_Optimally` removes missing or non-finite values from matrices by means of row and column deletions. These deletions are performed in a way that ensures that the maximum number of good (non-missing or finite) values are retained in the resulting matrix.
 
 The function `Using_an_Improved_Bonferroni_Correction_for_Multiple_Comparisons` is being worked on currently.
