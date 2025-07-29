@@ -18,6 +18,8 @@ The function `Arranging_Plots_Nicely` generates a plot layout matrix that is as 
 
 The function `Attempting_to_Diagonalize_a_Matrix_Based_on_Its_Full_Diagonal` performs row exchanges and column exchanges on a matrix until the largest entries in the matrix lie as close as possible to the full diagonal and the smallest entries in the matrix lie as far as possible from the full diagonal. This procedure is useful for creating bipartite interaction matrix visualization plots where the species (nodes) from different trophic levels that interact more frequently are closer together and species (nodes) that interact less frequently are farther apart on the bipartite interaction visualization plot.
 
+The function `Calculating_Standardized_Moments` calculates, for a set of observations, [standardized moments](https://en.wikipedia.org/wiki/Standardized_moment). It assumes that the observations are a population, not a sample, and therefore it does not perform any bias corrections.
+
 The function `Checking_Layout_Matrix_Viability` determines if a potential layout matrix (for plotting) is viable by determining if any plot numbers are skipped and if all potential plotting regions are single, contiguous, perfect rectangles.
 
 The function `Comparing_Multiple_Independent_Correlation_Coefficients` compares multiple correlation coefficients from independent correlations (Levy, 1977). This function generates p values for pairwise correlation coefficient comparisons as well as means separation lettering. It has been cited in several publications (Beghin, 2023; Chue and Yeo, 2022; Findor et al., 2021; Karakai and Moskotina, 2024; Matko and Sedlmeier, 2023).
