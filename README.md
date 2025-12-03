@@ -54,10 +54,6 @@ The function `Ordinalizing_Integers` takes integers and adds the appropriate ord
 
 The function `Removing_Matrix_Rows_and_Columns_Optimally` removes missing or non-finite values from matrices by means of row and column deletions. These deletions are performed in a way that ensures that the maximum number of good (non-missing or finite) values are retained in the resulting matrix.
 
-The function `Using_an_Improved_Bonferroni_Correction_for_Multiple_Comparisons` is being worked on currently.
-
-The function `Using_an_Improved_Sidak_Correction_for_Multiple_Comparisons` is being worked on currently.
-
 #### Data Frames
 
 The data frame `Sugar_Maple_Data` may be used with the `Aligning_Values_Across_Multiple_Vertical_Axes()` function - the `Sap_Flow` and `Wood_Temperature` columns in this data frame can be aligned across primary and secondary vertical axes at the values of `0` as shown [here](https://raw.githubusercontent.com/davidblakneymoore/DBM.functions/main/Sugar%20Maple%20Sap%20Flow%20and%20Wood%20Temperature%20Time-Series%20Plot.jpeg).
